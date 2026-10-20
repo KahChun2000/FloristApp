@@ -40,6 +40,7 @@ export default function MallScreen({
   useEffect(() => {
     setType(route.params?.type);
     setCategoryId(route.params?.categoryId);
+    setSearch('');
   }, [route.params]);
 
   const items = filterProducts(products, {
@@ -132,7 +133,10 @@ export default function MallScreen({
       </View>
 
       <FlatList
+        testID="mall-list"
         data={items}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         numColumns={2}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.grid}

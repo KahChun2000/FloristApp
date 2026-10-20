@@ -45,7 +45,11 @@ export default function LocationSection() {
               source={require('../assets/images/icon-location.png')}
               style={styles.icon}
             />
-            <Pressable onPress={() => openInMaps(mall.name)}>
+            <Pressable
+              style={styles.addressButton}
+              onPress={() => openInMaps(mall.name)}
+              accessibilityLabel={'Open ' + mall.name + ' address'}
+            >
               <Text style={styles.address}>{mall.address}</Text>
             </Pressable>
           </View>
@@ -112,6 +116,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 3,
     marginRight: 12,
+  },
+  addressButton: {
+    flexShrink: 1,
   },
   address: {
     fontSize: 15,

@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
+import { StatusBar } from 'react-native';
 import App from '../App';
 
 test('shows the five tabs', async () => {
@@ -20,4 +21,14 @@ test('pressing a tab switches screen', async () => {
   await render(<App />);
   await fireEvent.press(screen.getByText('INBOX'));
   expect(screen.getByText('Inbox')).toBeTruthy();
+});
+
+test('status bar turns dark on the white mall screen', async () => {
+  const spy = jest.spyOn(StatusBar, 'setBarStyle');
+  await render(<App />);
+  await fireEvent.press(screen.getByText('MALL'));
+  expect(spy).toHaveBeenLastCalledWith('dark-content');
+  await fireEvent.press(screen.getByText('HOME'));
+  expect(spy).toHaveBeenLastCalledWith('light-content');
+  spy.mockRestore();
 });

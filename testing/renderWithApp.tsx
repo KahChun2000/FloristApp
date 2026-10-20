@@ -30,11 +30,15 @@ export function createNavigation() {
   };
 }
 
-export function renderWithApp(element: React.ReactElement) {
-  return render(
+export function withApp(element: React.ReactElement) {
+  return (
     <AppProvider>
       <TestButtons />
       {element}
-    </AppProvider>,
+    </AppProvider>
   );
+}
+
+export function renderWithApp(element: React.ReactElement) {
+  return render(withApp(element));
 }

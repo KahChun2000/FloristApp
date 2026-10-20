@@ -1,7 +1,11 @@
 import React from 'react';
 import { fireEvent, screen } from '@testing-library/react-native';
 import MallScreen from '../src/screens/MallScreen';
-import { createNavigation, renderWithApp } from '../testing/renderWithApp';
+import {
+  createNavigation,
+  renderWithApp,
+  withApp,
+} from '../testing/renderWithApp';
 
 async function renderMall(params?: object) {
   const navigation = createNavigation();
@@ -81,4 +85,36 @@ test('back button goes back', async () => {
   const navigation = await renderMall();
   await fireEvent.press(screen.getByLabelText('Back'));
   expect(navigation.goBack).toHaveBeenCalled();
+});
+
+test('tapping a result works while the keyboard is open', async () => {
+  await renderMall();
+  const list = screen.getByTestId('mall-list');
+  expect(list.props.keyboardShouldPersistTaps).toBe('handled');
+  expect(list.props.keyboardDismissMode).toBe('on-drag');
+});
+
+test('new params from home clear the old search', async () => {
+  const navigation = createNavigation();
+  const result = await renderWithApp(
+    <MallScreen
+      navigation={navigation as any}
+      route={{ key: 'Mall', name: 'Mall', params: { type: 'shop' } } as any}
+    />,
+  );
+  await fireEvent.changeText(
+    screen.getByPlaceholderText('Search Salon'),
+    'zzz',
+  );
+  await result.rerender(
+    withApp(
+      <MallScreen
+        navigation={navigation as any}
+        route={
+          { key: 'Mall', name: 'Mall', params: { type: 'service' } } as any
+        }
+      />,
+    ),
+  );
+  expect(screen.getByPlaceholderText('Search Salon').props.value).toBe('');
 });
