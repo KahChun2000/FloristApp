@@ -54,3 +54,24 @@ test('log out resets data and shows a message', async () => {
   ).toBeTruthy();
   expect(screen.getByText('My Cart (0)')).toBeTruthy();
 });
+
+test('logged out message clears after the next action', async () => {
+  await renderAccount();
+  await fireEvent.press(screen.getByText('Log Out'));
+  expect(
+    screen.getByText('You have been logged out. Data reset.'),
+  ).toBeTruthy();
+  await fireEvent(screen.getByLabelText('Notifications'), 'valueChange', false);
+  expect(
+    screen.queryByText('You have been logged out. Data reset.'),
+  ).toBeNull();
+});
+
+test('logged out message clears when opening a menu row', async () => {
+  await renderAccount();
+  await fireEvent.press(screen.getByText('Log Out'));
+  await fireEvent.press(screen.getByText('My Appointment'));
+  expect(
+    screen.queryByText('You have been logged out. Data reset.'),
+  ).toBeNull();
+});

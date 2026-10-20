@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Switch, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../theme';
 
 export type SortOption = 'default' | 'low' | 'high';
@@ -18,6 +19,7 @@ const sortOptions: { value: SortOption; label: string }[] = [
 ];
 
 export default function FilterSheet(props: Props) {
+  const insets = useSafeAreaInsets();
   const [sort, setSort] = useState(props.sort);
   const [saleOnly, setSaleOnly] = useState(props.saleOnly);
 
@@ -34,7 +36,10 @@ export default function FilterSheet(props: Props) {
       onRequestClose={props.onClose}
     >
       <Pressable style={styles.backdrop} onPress={props.onClose} />
-      <View style={styles.sheet}>
+      <View
+        testID="filter-sheet"
+        style={[styles.sheet, { paddingBottom: insets.bottom + 24 }]}
+      >
         <View style={styles.headerRow}>
           <Text style={styles.title}>Filter</Text>
           <Pressable onPress={reset}>
@@ -90,7 +95,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     padding: 24,
-    paddingBottom: 40,
   },
   headerRow: {
     flexDirection: 'row',

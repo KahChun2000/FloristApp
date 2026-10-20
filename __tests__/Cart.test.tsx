@@ -53,3 +53,12 @@ test('checkout places the order and empties the cart', async () => {
     screen.queryByText('Pilea Peperomioides in White Ceramic Pot'),
   ).toBeNull();
 });
+
+test('footer padding follows the safe area bottom inset', async () => {
+  await renderCart();
+  await fireEvent.press(screen.getByText('test-add-to-cart'));
+  const footer = screen.getByTestId('cart-footer');
+  expect(footer.props.style).toEqual(
+    expect.arrayContaining([expect.objectContaining({ paddingBottom: 16 })]),
+  );
+});

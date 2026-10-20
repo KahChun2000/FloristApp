@@ -49,6 +49,16 @@ export default function AccountScreen({
     useApp();
   const [loggedOut, setLoggedOut] = useState(false);
 
+  function openScreen(name: 'Cart' | 'AppointmentDetail' | 'LikedPosts') {
+    setLoggedOut(false);
+    navigation.navigate(name);
+  }
+
+  function changeSetting(key: 'notifications' | 'promoEmails') {
+    setLoggedOut(false);
+    toggleSetting(key);
+  }
+
   function logOut() {
     resetAll();
     setLoggedOut(true);
@@ -74,15 +84,15 @@ export default function AccountScreen({
       <View style={styles.group}>
         <MenuRow
           label={'My Cart (' + cartCount + ')'}
-          onPress={() => navigation.navigate('Cart')}
+          onPress={() => openScreen('Cart')}
         />
         <MenuRow
           label="My Appointment"
-          onPress={() => navigation.navigate('AppointmentDetail')}
+          onPress={() => openScreen('AppointmentDetail')}
         />
         <MenuRow
           label={'Liked Posts (' + likedPostIds.length + ')'}
-          onPress={() => navigation.navigate('LikedPosts')}
+          onPress={() => openScreen('LikedPosts')}
         />
       </View>
 
@@ -91,12 +101,12 @@ export default function AccountScreen({
         <SettingRow
           label="Notifications"
           value={settings.notifications}
-          onChange={() => toggleSetting('notifications')}
+          onChange={() => changeSetting('notifications')}
         />
         <SettingRow
           label="Promotional emails"
           value={settings.promoEmails}
-          onChange={() => toggleSetting('promoEmails')}
+          onChange={() => changeSetting('promoEmails')}
         />
       </View>
 

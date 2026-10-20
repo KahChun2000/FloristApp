@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StackScreenProps } from '../navigation/types';
 import { useApp } from '../context/AppContext';
 import { formatPrice } from '../data/products';
@@ -15,6 +16,7 @@ import ScreenHeader from '../components/ScreenHeader';
 import QuantityStepper from '../components/QuantityStepper';
 
 export default function CartScreen({ navigation }: StackScreenProps<'Cart'>) {
+  const insets = useSafeAreaInsets();
   const { cart, changeQuantity, removeFromCart, clearCart } = useApp();
   const [orderPlaced, setOrderPlaced] = useState(false);
 
@@ -96,7 +98,10 @@ export default function CartScreen({ navigation }: StackScreenProps<'Cart'>) {
         }}
       />
       {cart.length > 0 ? (
-        <View style={styles.footer}>
+        <View
+          testID="cart-footer"
+          style={[styles.footer, { paddingBottom: insets.bottom + 16 }]}
+        >
           <Text style={styles.total}>{'Total: ' + formatPrice(total)}</Text>
           <Pressable style={styles.button} onPress={checkout}>
             <Text style={styles.buttonText}>Checkout</Text>
@@ -174,7 +179,6 @@ const styles = StyleSheet.create({
   footer: {
     backgroundColor: colors.white,
     padding: 16,
-    paddingBottom: 32,
   },
   total: {
     fontSize: 17,

@@ -118,3 +118,12 @@ test('new params from home clear the old search', async () => {
   );
   expect(screen.getByPlaceholderText('Search Salon').props.value).toBe('');
 });
+
+test('filter sheet padding follows the safe area bottom inset', async () => {
+  await renderMall();
+  await fireEvent.press(screen.getByLabelText('Filter'));
+  const sheet = screen.getByTestId('filter-sheet');
+  expect(sheet.props.style).toEqual(
+    expect.arrayContaining([expect.objectContaining({ paddingBottom: 24 })]),
+  );
+});
