@@ -27,10 +27,7 @@ function renderTabBar(props: BottomTabBarProps) {
 
 function Tabs() {
   return (
-    <Tab.Navigator
-      tabBar={renderTabBar}
-      screenOptions={{ headerShown: false }}
-    >
+    <Tab.Navigator tabBar={renderTabBar} screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Mall" component={MallScreen} />
       <Tab.Screen name="Discover" component={DiscoverScreen} />
