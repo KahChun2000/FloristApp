@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Dimensions,
   Image,
   Pressable,
   ScrollView,
@@ -68,6 +69,7 @@ export default function ProductDetailScreen({ navigation, route }) {
           <Image
             source={require('../assets/images/product.jpg')}
             style={styles.image}
+            resizeMode='cover'
           />
           {onSale ? (
             <Image
@@ -167,8 +169,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   image: {
-    width: '100%',
-    aspectRatio: 1,
+    height: Dimensions.get('window').height * 0.3,
+    width: '100%'
   },
   badge: {
     position: 'absolute',

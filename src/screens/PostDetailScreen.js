@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Dimensions,
   Image,
   Pressable,
   ScrollView,
@@ -38,6 +39,7 @@ export default function PostDetailScreen({ navigation, route }) {
         <Image
           source={require('../assets/images/product.jpg')}
           style={styles.image}
+          resizeMode='cover'
         />
         <View style={styles.body}>
           <Text style={styles.category}>{post.category}</Text>
@@ -74,8 +76,8 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   image: {
-    width: '100%',
-    aspectRatio: 1.2,
+    height: Dimensions.get('window').height * 0.3,
+    width: '100%'
   },
   body: {
     padding: 20,

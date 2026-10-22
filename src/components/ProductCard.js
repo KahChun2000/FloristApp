@@ -14,6 +14,7 @@ export default function ProductCard({ product, onPress }) {
           <Image
             source={require('../assets/images/product.jpg')}
             style={styles.image}
+            resizeMode='cover'
           />
           {onSale ? (
             <Image
@@ -50,7 +51,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    aspectRatio: 1,
     borderRadius: 4,
   },
   badge: {

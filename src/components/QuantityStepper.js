@@ -28,10 +28,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
   },
   button: {
-    width: 30,
-    height: 30,
+    width: 40,
+    height: 40,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: colors.button,
@@ -45,8 +47,9 @@ const styles = StyleSheet.create({
   value: {
     minWidth: 32,
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '700',
     color: colors.text,
+    marginHorizontal: 20
   },
 });

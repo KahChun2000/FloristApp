@@ -9,6 +9,7 @@ export default function TrendingCard({ post, onPress }) {
       <Image
         source={require('../assets/images/product.jpg')}
         style={styles.image}
+        resizeMode='cover'
       />
       <Text style={styles.category}>{post.category}</Text>
       <Text style={styles.title}>{post.title}</Text>
@@ -26,7 +27,6 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    aspectRatio: 1,
   },
   category: {
     fontSize: 11,
